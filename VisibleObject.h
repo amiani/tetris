@@ -1,5 +1,5 @@
 #pragma once
-
+#include <SFML/Graphics.hpp>
 
 class VisibleObject
 {
@@ -7,6 +7,6 @@ public:
 	VisibleObject();
 	~VisibleObject();
 
-	virtual void Update();
-	virtual void Draw(sf::RenderWindow &window);
+	virtual void update();
+	virtual void draw(sf::RenderWindow &window);
 };

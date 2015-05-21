@@ -7,14 +7,14 @@ public:
 	Board();
 	~Board();
 
-	void Update();
-	void Draw(sf::RenderWindow &window);
+	void update();
+	void draw(sf::RenderWindow &window);
 
-	int CheckForLines();
-	void DeleteLine(int line); // Deletes line and moves above lines down
-	int getwidth();
-	std::vector<std::vector<int>> getboard();
-	void SetBlock(int, int);
+	int chcekForLines();
+	void deleteLine(int line); // Deletes line and moves above lines down
+	int getWidth();
+	std::vector<std::vector<int>> getBoard();
+	void setBlock(int, int);
 
 private:
 	sf::Sprite sprite;

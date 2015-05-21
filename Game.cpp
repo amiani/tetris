@@ -1,8 +1,10 @@
-#include "stdafx.h"
+#include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
 #include "Game.h"
 #include "time.h"
 
-void Game::Start()
+void Game::start()
 {
 	gamestate = Setup;
 	srand(time(NULL));
@@ -15,31 +17,31 @@ void Game::Start()
 
 	gamestate = Paused;
 	while (gamestate != Exiting)
-		GameLoop();
+		gameLoop();
 
 	delete activetetro;
 	mainwindow.close();
 }
 
-void Game::UpdateAll(sf::Event currevent)
+void Game::updateAll(sf::Event currevent)
 {
 	for (auto &itr : tetrominoes)
-		if (!itr.Update(board, currevent))
+		if (!itr.update(board, currevent))
 			blockexists = false;
 	if (!blockexists)
 		tetrominoes.pop_back();
-	board.Update();
+	board.update();
 }
 
-void Game::DrawAll(sf::RenderWindow &window)
+void Game::drawAll(sf::RenderWindow &window)
 {
 	if (blockexists)
 		for (auto tet : tetrominoes)
-			tet.Draw(mainwindow);
-	board.Draw(mainwindow);
+			tet.draw(mainwindow);
+	board.draw(mainwindow);
 }
 
-void Game::GameLoop()
+void Game::gameLoop()
 {
 	sf::Event currevent;
 	mainwindow.pollEvent(currevent);
@@ -61,7 +63,7 @@ void Game::GameLoop()
 				tetrominoes.push_back(Tetromino());
 				blockexists = true;				
 			}
-			UpdateAll(currevent);
+			updateAll(currevent);
 		}
 		break;
 	}
@@ -70,7 +72,7 @@ void Game::GameLoop()
 
 	mainwindow.clear(sf::Color::White);
 	mainwindow.draw(background);
-	DrawAll(mainwindow);
+	drawAll(mainwindow);
 	mainwindow.display();
 }
 

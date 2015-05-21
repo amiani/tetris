@@ -1,4 +1,6 @@
-#include "stdafx.h"
+#include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
 #include "Board.h"
 
 Board::Board()
@@ -16,13 +18,13 @@ Board::~Board()
 {
 }
 
-void Board::Update()
+void Board::update()
 {
-	while (CheckForLines() != -1)   // Perhaps this loop could be removed
-		DeleteLine(CheckForLines());
+	while (chcekForLines() != -1)   // Perhaps this loop could be removed
+		deleteLine(chcekForLines());
 }
 
-void Board::Draw(sf::RenderWindow &window)
+void Board::draw(sf::RenderWindow &window)
 {
 	for (int y = 2; y != 22; y++)
 		for (int x = 0; x != 10; x++)
@@ -33,7 +35,7 @@ void Board::Draw(sf::RenderWindow &window)
 			}
 }
 
-int Board::CheckForLines()
+int Board::chcekForLines()
 {
 	for (int y = 21; y != 1; y--) // For every horiz vector (reverse)
 	{
@@ -47,24 +49,24 @@ int Board::CheckForLines()
 	return -1;                  // no complete line found
 }
 
-void Board::DeleteLine(int line)
+void Board::deleteLine(int line)
 {
 	for (int i = line; i != 0; i--)
 		for (int j = 0; j < 10; j++)
 			board[i][j] = board[i-1][j];
 }
 
-int Board::getwidth()
+int Board::getWidth()
 {
 	return board[0].size();
 }
 
-std::vector<std::vector<int>> Board::getboard()
+std::vector<std::vector<int>> Board::getBoard()
 {
 	return board;
 }
 
-void Board::SetBlock(int y, int x)
+void Board::setBlock(int y, int x)
 {
 	board[y][x] = 1;
 }

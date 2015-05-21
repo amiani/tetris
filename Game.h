@@ -8,12 +8,12 @@ public:
 	Game();
 	~Game();
 
-	static void Start();	
+	static void start();	
 
 private:
-	static void UpdateAll(sf::Event currevent);
-	static void DrawAll(sf::RenderWindow &window);	
-	static void GameLoop();
+	static void updateAll(sf::Event currevent);
+	static void drawAll(sf::RenderWindow &window);	
+	static void gameLoop();
 
 	static bool blockexists;
 

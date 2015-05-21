@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include <SFML/Window.hpp>
 #include "Tetromino.h"
 #include "assert.h"
 
@@ -92,25 +92,25 @@ Tetromino::~Tetromino()
 {
 }
 
-bool Tetromino::Update(Board &board, sf::Event currevent)
+bool Tetromino::update(Board &board, sf::Event currevent)
 {
-	if (!CheckCollision(board))
+	if (!checkCollision(board))
 	{
 		if (currevent.type == sf::Event::KeyPressed && currevent.key.code == sf::Keyboard::Left)
 		{
 			position.x--;
-			if (!IsPlaceable(board, shapematrix))
+			if (!isPlaceable(board, shapematrix))
 				position.x++;
 		}
 		if (currevent.type == sf::Event::KeyPressed	&& currevent.key.code == sf::Keyboard::Right)
 		{
 			position.x++;
-			if (!IsPlaceable(board, shapematrix))
+			if (!isPlaceable(board, shapematrix))
 				position.x--;
 		}
 		if (currevent.type == sf::Event::KeyPressed
 			&& currevent.key.code == sf::Keyboard::Up && shape != 1)
-			Rotate(board);
+			rotate(board);
 
 		if (clock.getElapsedTime().asSeconds() >= 0.2)
 		{
@@ -127,7 +127,7 @@ bool Tetromino::Update(Board &board, sf::Event currevent)
 				int xpos = x + position.x;
 
 				if (shapematrix[y][x] == 1)
-					board.SetBlock(ypos, xpos);
+					board.setBlock(ypos, xpos);
 			}
 
 		return false;
@@ -136,7 +136,7 @@ bool Tetromino::Update(Board &board, sf::Event currevent)
 	return true;
 }
 
-void Tetromino::Draw(sf::RenderWindow &window)
+void Tetromino::draw(sf::RenderWindow &window)
 {
 	int blockx = 0, blocky = 0;
 	
@@ -151,7 +151,7 @@ void Tetromino::Draw(sf::RenderWindow &window)
 			}
 }
 
-void Tetromino::Rotate(Board board)
+void Tetromino::rotate(Board board)
 {
 	std::vector<std::vector<int>> tempmatrix(shapematrix.size(), std::vector<int>(shapematrix.size(), 0));
 	
@@ -162,11 +162,11 @@ void Tetromino::Rotate(Board board)
 	for (auto &vec : tempmatrix)
 		std::reverse(vec.begin(), vec.end());
 
-	if (IsPlaceable(board, tempmatrix))
+	if (isPlaceable(board, tempmatrix))
 		shapematrix = tempmatrix;
 }
 
-bool Tetromino::CheckCollision(Board board)
+bool Tetromino::checkCollision(Board board)
 {
 	for (int y = 0; y != shapematrix.size(); y++)
 		for (int x = 0; x != shapematrix[y].size(); x++)
@@ -175,14 +175,14 @@ bool Tetromino::CheckCollision(Board board)
 			int xpos = x + position.x;
 
 			if (shapematrix[y][x] == 1)
-				if (ypos == 21 || board.getboard()[ypos+1][xpos] == 1)
+				if (ypos == 21 || board.getBoard()[ypos+1][xpos] == 1)
 					return true;
 		}
 	
 	return false;
 }
 
-bool Tetromino::IsPlaceable(Board board, std::vector<std::vector<int>> piece)
+bool Tetromino::isPlaceable(Board board, std::vector<std::vector<int>> piece)
 {
 	for (int y = 0; y != piece.size(); y++)
 		for (int x = 0; x != piece[y].size(); x++)
@@ -192,10 +192,10 @@ bool Tetromino::IsPlaceable(Board board, std::vector<std::vector<int>> piece)
 
 			if (piece[y][x] == 1)
 			{
-				if (xpos >= board.getwidth() || xpos < 0)
+				if (xpos >= board.getWidth() || xpos < 0)
 					return false;
 
-				if (board.getboard()[ypos][xpos] == 1)
+				if (board.getBoard()[ypos][xpos] == 1)
 					return false;
 			}
 

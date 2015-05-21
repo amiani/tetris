@@ -1,4 +1,6 @@
 #pragma once
+#include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
 #include "VisibleObject.h"
 #include "Board.h"
 
@@ -8,13 +10,13 @@ public:
 	Tetromino();
 	~Tetromino();
 
-	bool Update(Board &board, sf::Event currevent);
-	void Draw(sf::RenderWindow &window);
+	bool update(Board &board, sf::Event currevent);
+	void draw(sf::RenderWindow &window);
 
 private:
-	void Rotate(Board board);
-	bool CheckCollision(Board board);
-	bool IsPlaceable(Board board, std::vector<std::vector<int>>);
+	void rotate(Board board);
+	bool checkCollision(Board board);
+	bool isPlaceable(Board board, std::vector<std::vector<int>>);
 
 	enum Shape { I, O, S, Z, J, L, T };
 	Shape shape;
