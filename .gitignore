@@ -89,3 +89,6 @@ $tf/
 _ReSharper*/
 *.[Rr]e[Ss]harper
 *.DotSettings.user
+
+*.vcxproj
+*.sln
